@@ -8,6 +8,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>26</maven.compiler.release>
+        <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.33</version>
+        </dependency>
         <exec.mainClass>com.rifki.java_project_task1.Java_project_task1</exec.mainClass>
     </properties>
 </project>
