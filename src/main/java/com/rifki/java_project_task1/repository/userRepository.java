@@ -6,7 +6,7 @@ import java.util.List;
 import com.rifki.java_project_task1.model.User;
 
 public class UserRepository {
-    
+
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM users";
@@ -14,7 +14,7 @@ public class UserRepository {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                users.add(new User(rs.getString("nim"), rs.getString("name")));
+                users.add(new User(rs.getString("nim"), rs.getString("name"),rs.getString("created_at"), rs.getString("updated_at")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -23,12 +23,13 @@ public class UserRepository {
     }
 
     public boolean checkNim(String nim) {
-        String sql = "SELECT * FROM users WHERE nim = ?";
+        String sql = "SELECT 1 FROM users WHERE nim = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, nim);
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
