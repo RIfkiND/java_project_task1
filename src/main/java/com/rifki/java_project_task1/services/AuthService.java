@@ -24,4 +24,8 @@ public class AuthService {
     public String getCurrentNim() {
         return currentNim;
     }
+
+    public User getUserByNim(String nim) {
+        return userRepository.getUserByNim(nim);
+    }
 }

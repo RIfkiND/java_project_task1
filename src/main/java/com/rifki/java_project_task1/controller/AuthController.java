@@ -13,7 +13,11 @@ public class AuthController {
     }
 
     public boolean login(String inputNim) {
-        return authService.login(inputNim);
+        boolean isSuccess = authService.login(inputNim);
+        if (isSuccess) {
+            this.user = authService.getUserByNim(inputNim);
+        }
+        return isSuccess;
     }
 
     public User getUser() {

@@ -92,7 +92,7 @@ public class BorrowingRepository {
                 }
             }
         }
-    }
+    }   
 
     public void returnBook(int borrowingId, String loggedInNim) {
         String findBorrowingSql = "SELECT book_id, status, nim FROM borrowings WHERE id = ?";

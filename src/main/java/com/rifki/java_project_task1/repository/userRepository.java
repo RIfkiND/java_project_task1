@@ -35,4 +35,20 @@ public class UserRepository {
         }
         return false;
     }
+    
+    public User getUserByNim(String nim) {
+        String sql = "SELECT * FROM users WHERE nim = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, nim);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new User(rs.getString("nim"), rs.getString("name"), rs.getString("created_at"), rs.getString("updated_at"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
