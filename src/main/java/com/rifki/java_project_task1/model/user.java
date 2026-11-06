@@ -13,7 +13,6 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    private UserSession
 
     public String getNim() {
         return nim;

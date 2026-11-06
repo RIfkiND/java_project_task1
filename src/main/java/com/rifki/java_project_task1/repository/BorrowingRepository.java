@@ -135,7 +135,6 @@ public class BorrowingRepository {
                 updateStock.setInt(1, bookId);
                 updateStock.executeUpdate();
             }
-
             conn.commit();
         } catch (SQLException e) {
             if (conn != null) {
