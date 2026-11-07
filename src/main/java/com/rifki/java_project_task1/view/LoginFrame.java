@@ -5,6 +5,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import com.rifki.java_project_task1.controller.BookController;
+import com.rifki.java_project_task1.controller.BorrowingController;
+import com.rifki.java_project_task1.model.User;
+import com.rifki.java_project_task1.repository.BookRepository;
+import com.rifki.java_project_task1.repository.BorrowingRepository;
+import com.rifki.java_project_task1.services.BookService;
+import com.rifki.java_project_task1.services.BorrowingService;
+
 
 public class LoginFrame extends JFrame {
     private AuthController authController;
@@ -46,13 +54,21 @@ public class LoginFrame extends JFrame {
         }
 
         boolean success = authController.login(inputNim);
-
         if (success) {
             JOptionPane.showMessageDialog(this, "Login Berhasil!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
-            
-            System.out.println("User aktif: " + authController.getUser());
-   
-            this.dispose(); 
+
+            User loggedInUser = authController.getUser();
+            BookRepository bookRepository = new BookRepository();
+            BorrowingRepository borrowingRepository = new BorrowingRepository();
+            BookService bookService = new BookService(bookRepository);
+            BorrowingService borrowingService = new BorrowingService(borrowingRepository);
+            BookController bookController = new BookController(bookService);
+            BorrowingController borrowingController = new BorrowingController(borrowingService);
+
+            MainFrame mainFrame = new MainFrame(loggedInUser, bookController, borrowingController);
+            mainFrame.setVisible(true);
+
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "NIM tidak ditemukan / Login Gagal!", "Gagal", JOptionPane.ERROR_MESSAGE);
         }

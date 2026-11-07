@@ -11,6 +11,8 @@ public class Borrowing {
     private String returnDate;
     private BorrowingStatus status;
 
+    public Borrowing() {
+     }
     public Borrowing(
         int id,
         String nim,
